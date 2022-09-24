@@ -7,4 +7,5 @@ target 'SideMenuHW' do
 
   # Pods for SideMenuHW
 pod 'SwiftLint'
+pod 'SnapKit', '~> 5.6.0'
 end

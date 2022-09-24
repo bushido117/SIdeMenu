@@ -54,7 +54,6 @@
 				9E9ED7658D5E6D0CD8B0AE5E /* Pods-SideMenuHW.debug.xcconfig */,
 				F9E1F61F325E75D8B5BC9A63 /* Pods-SideMenuHW.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -117,9 +116,11 @@
 			buildConfigurationList = 72AA6F4628DDE1A50047D996 /* Build configuration list for PBXNativeTarget "SideMenuHW" */;
 			buildPhases = (
 				CAC192A7D6C03F916B982037 /* [CP] Check Pods Manifest.lock */,
+				72AA6F5028DF32F40047D996 /* ShellScript */,
 				72AA6F2E28DDE1A30047D996 /* Sources */,
 				72AA6F2F28DDE1A30047D996 /* Frameworks */,
 				72AA6F3028DDE1A30047D996 /* Resources */,
+				BA7C7C7480A10C030163B07F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -177,6 +178,40 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		72AA6F5028DF32F40047D996 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		BA7C7C7480A10C030163B07F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SideMenuHW/Pods-SideMenuHW-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SideMenuHW/Pods-SideMenuHW-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SideMenuHW/Pods-SideMenuHW-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		CAC192A7D6C03F916B982037 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

@@ -12,49 +12,59 @@ class ViewController: UIViewController {
         case opened
         case closed
     }
+    let blurView = UIVisualEffectView()
     let menuVC = SideMenuViewController()
     let homeVC = HomeViewController()
     lazy var infoVC = InfoViewController()
     private var menuState = MenuState.closed
-    var blurView = UIVisualEffectView()
     var navVC: UINavigationController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         addChildVCs()
+//        initializeHideKeyboard()
     }
 
     private func addChildVCs() {
-        menuVC.delegate = self
-        addChild(menuVC)
-        view.addSubview(menuVC.view)
-        menuVC.didMove(toParent: self)
-        
-        homeVC.delegate = self
         let navVC = UINavigationController(rootViewController: homeVC)
-        addChild(navVC)
-        view.addSubview(navVC.view)
-        navVC.didMove(toParent: self)
         self.navVC = navVC
+        self.navigationController?.navigationBar.isTranslucent = false
+        menuVC.delegate = self
+        homeVC.delegate = self
+        addChild(menuVC)
+        addChild(navVC)
+        view.addSubview(menuVC.view)
+        view.addSubview(navVC.view)
+        menuVC.didMove(toParent: self)
+        navVC.didMove(toParent: self)
     }
-    
     func sideMenuMoves() {
         switch menuState {
         case .closed:
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.curveEaseInOut]) { [weak self] in
+            UIView.animate(
+                withDuration: 0.5,
+                delay: 0,
+                usingSpringWithDamping: 0.8,
+                initialSpringVelocity: 0,
+                options: [.curveEaseInOut]) { [weak self] in
                 self?.navVC?.view.frame.origin.x = (self?.homeVC.view.frame.size.width ?? .zero) - 100
                 let blur = UIBlurEffect(style: .light)
                 self?.blurView.frame = self?.view.bounds ?? .zero
                 self?.blurView.effect = blur
-                let vibraEf = UIVibrancyEffect(blurEffect: blur)
-                let vibraView = UIVisualEffectView(effect: vibraEf)
-                vibraView.frame = self?.view.bounds ?? .zero
-                self?.blurView.contentView.addSubview(vibraView)
-                self?.homeVC.view.addSubview(self!.blurView)
+                let vibrancyEffect = UIVibrancyEffect(blurEffect: blur)
+                let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
+                vibrancyView.frame = self?.view.bounds ?? .zero
+                self?.blurView.contentView.addSubview(vibrancyView)
+                    self?.homeVC.view.addSubview(self?.blurView ?? vibrancyView)
                 self?.menuState = .opened
             }
         case .opened:
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.curveEaseInOut]) { [weak self] in
+            UIView.animate(
+                withDuration: 0.5,
+                delay: 0,
+                usingSpringWithDamping: 0.8,
+                initialSpringVelocity: 0,
+                options: [.curveEaseInOut]) { [weak self] in
                 self?.navVC?.view.frame.origin.x = 0
                 self?.blurView.removeFromSuperview()
                 self?.menuState = .closed
@@ -72,16 +82,16 @@ extension ViewController: SideMenuViewControllerDelegate {
     func didSelect(menuItem: SideMenuViewController.MenuOptions) {
         sideMenuMoves()
         switch menuItem {
-            case .home:
-                self.resetToHome()
-            case .info:
-                self.addInfo()
-            case .appRating:
-                break
-            case .shareApp:
-                break
-            case .setting:
-                break
+        case .profile:
+            self.resetToHome()
+        case .info:
+            self.addInfo()
+        case .appRating:
+            break
+        case .shareApp:
+            break
+        case .setting:
+            break
         }
     }
     func addInfo() {
@@ -95,6 +105,6 @@ extension ViewController: SideMenuViewControllerDelegate {
         infoVC.view.removeFromSuperview()
         infoVC.removeFromParent()
         infoVC.didMove(toParent: nil)
-        homeVC.title = "Home"
+        homeVC.title = "Profile"
     }
 }
